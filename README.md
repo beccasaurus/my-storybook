@@ -324,7 +324,7 @@ index 9abe687..9997a70 100644
 +export default specs;
 ```
 
-#### Import specs from test file and call with specs()
+#### Import specs from story and call with specs()
 
 ```diff
 diff --git a/components/src/stories/1-Button.stories.js b/components/src/stories/1-Button.stories.js
@@ -508,6 +508,8 @@ _**Flow-typed component library with property documentation and Storybook-integr
 # Run this _outside_ of your git repository
 npx create-react-app todo-app
 
+rm -rf todo-app/.git
+
 mv todo-app my-storybook/app/ && cd my-storybook/app/
 ```
 
@@ -645,6 +647,117 @@ Ran all test suites related to changed files.
 ```
 
 #### Show Jest tests in Storybook
+
+```sh
+yarn add -D storybook-addon-specifications
+```
+
+#### Register Specifications addon
+
+> Also removes un-used addons Actions and Links (optional;)
+>
+> Removing 'Actions' ensures that the 'Specifications' tab
+> shows up by default when viewing a Story on the Canvas.
+
+```diff
+diff --git a/app/.storybook/main.js b/app/.storybook/main.js
+index 68c437d..e2b6c0b 100644
+--- a/app/.storybook/main.js
++++ b/app/.storybook/main.js
+@@ -2,8 +2,7 @@ module.exports = {
+   stories: ['../src/**/*.stories.js'],
+   addons: [
+     '@storybook/preset-create-react-app',
+-    '@storybook/addon-actions',
+-    '@storybook/addon-links',
+     '@storybook/addon-docs',
++    'storybook-addon-specifications',
+   ],
+ };
+```
+
+#### Export describe() block from tests
+
+```diff
+diff --git a/app/src/components/MyComponent.test.js b/app/src/components/MyComponent.test.js
+index 66fb934..83ca251 100644
+--- a/app/src/components/MyComponent.test.js
++++ b/app/src/components/MyComponent.test.js
+@@ -2,9 +2,11 @@ import React from 'react';
+ import { mount } from 'enzyme';
+ import MyComponent from './MyComponent';
+
+-describe('MyComponent', () => {
++const specs = describe('MyComponent', () => {
+   it('shows correct text', () => {
+     const wrapper = mount(<MyComponent />);
+     expect(wrapper.text()).toEqual('Hello there! And also "Defaul text"');
+   });
+ });
++
++export default specs;
+```
+
+#### Import specs from story file and call with specs()
+
+```diff
+diff --git a/app/src/stories/MyComponent.stories.js b/app/src/stories/MyComponent.stories.js
+index a71531b..d8fb14f 100644
+--- a/app/src/stories/MyComponent.stories.js
++++ b/app/src/stories/MyComponent.stories.js
+@@ -1,9 +1,14 @@
+ import React from 'react';
+ import MyComponent from '../components/MyComponent';
++import { specs } from 'storybook-addon-specifications';
++import myComponentSpecs from '../components/MyComponent.test';
+
+ export default {
+   title: 'My Component',
+   component: MyComponent,
+ };
+
+-export const Hello = () => <MyComponent text="Hello, world!" />;
++export const Hello = () => {
++  specs(() => myComponentSpecs);
++  return <MyComponent text="Hello, world!" />;
++};
+```
+
+#### Add .storybook/test.js
+
+```diff
+diff --git a/app/.storybook/test.js b/app/.storybook/test.js
+index e69de29..adc3a5e 100644
+--- a/app/.storybook/test.js
++++ b/app/.storybook/test.js
+@@ -0,0 +1,11 @@
++import { describe, it, beforeEach } from 'storybook-addon-specifications';
++import expect from 'expect';
++
++import { configure as enzymeConfigure } from 'enzyme';
++import Adapter from 'enzyme-adapter-react-16';
++enzymeConfigure({ adapter: new Adapter() });
++
++window.describe = describe;
++window.beforeEach = beforeEach;
++window.it = it;
++window.expect = expect;
+```
+
+#### Add .storybook/config.js
+
+> TODO: figure out how to not have both a main.js and a config.js
+
+```diff
+diff --git a/app/.storybook/config.js b/app/.storybook/config.js
+index e69de29..cf480e3 100644
+--- a/app/.storybook/config.js
++++ b/app/.storybook/config.js
+@@ -0,0 +1,3 @@
++import { configure } from '@storybook/react';
++import './test';
++configure(require.context('../src/stories', true, /\.stories\.js$/), module);
+```
 
 </details>
 
