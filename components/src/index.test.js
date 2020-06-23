@@ -1,7 +1,10 @@
-import { ExampleComponent } from '.'
+import React from 'react';
+import { mount } from 'enzyme';
+import { ExampleComponent } from '.';
 
 describe('ExampleComponent', () => {
-  it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
-})
+  it('shows correct text', () => {
+    const wrapper = mount(<ExampleComponent text='Hello, world!' />);
+    expect(wrapper.text()).toEqual('Example Component: Hello, world!');
+  });
+});

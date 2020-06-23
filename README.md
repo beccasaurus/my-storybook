@@ -204,7 +204,75 @@ index 1704845..3787181 100644
 
 #### Add Jest tests for components
 
-- TODO
+```sh
+yarn add -D enzyme enzyme-adapter-react-16
+```
+
+##### Add src/setupTests.js
+
+```js
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+```
+
+##### Add src/AnotherComponent.test.js
+
+```js
+import React from 'react';
+import { mount } from 'enzyme';
+import { AnotherComponent } from '.';
+
+describe('AnotherComponent', () => {
+  it('shows correct text', () => {
+    const wrapper = mount(<AnotherComponent />);
+    expect(wrapper.text()).toEqual('Hello from another component!');
+  });
+});
+```
+
+##### Update index.test.js
+
+```diff
+diff --git a/components/src/index.test.js b/components/src/index.test.js
+index a0f0449..9abe687 100644
+--- a/components/src/index.test.js
++++ b/components/src/index.test.js
+@@ -1,7 +1,10 @@
+-import { ExampleComponent } from '.'
++import React from 'react';
++import { mount } from 'enzyme';
++import { ExampleComponent } from '.';
+
+ describe('ExampleComponent', () => {
+-  it('is truthy', () => {
+-    expect(ExampleComponent).toBeTruthy()
+-  })
+-})
++  it('shows correct text', () => {
++    const wrapper = mount(<ExampleComponent text='Hello, world!' />);
++    expect(wrapper.text()).toEqual('Example Component: Hello, world!');
++  });
++});
+```
+
+#### Run Just tests
+
+```sh
+$ yarn test
+yarn run v1.22.4
+$ run-s test:unit test:lint test:build
+$ cross-env CI=1 react-scripts test --env=jsdom
+PASS src/AnotherComponent.test.js
+PASS src/index.test.js
+
+Test Suites: 2 passed, 2 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.06s
+Ran all test suites.
+```
 
 #### Show Jest test results in Storybook
 
