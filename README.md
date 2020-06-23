@@ -1,6 +1,6 @@
 # 📘 My Storybook Template
 
-> _with React and Flow and Enzyme and Redux_
+> _Flow-typed React component library and application with Jest tests and Storybook_
 
 My currently preferred template for creating React apps.
 
