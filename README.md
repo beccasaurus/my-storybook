@@ -386,9 +386,86 @@ configure(require.context('../src/stories', true, /\.stories\.js$/), module);
 
 #### Add Flow
 
-- TODO
+```sh
+yarn add flow-bin
+```
+
+##### Add flow to package.json
+
+```diff
+diff --git a/components/package.json b/components/package.json
+index 5bd8527..3dc3e97 100644
+--- a/components/package.json
++++ b/components/package.json
+@@ -23,7 +23,8 @@
+     "predeploy": "cd example && yarn install && yarn run build",
+     "deploy": "gh-pages -d example/build",
+     "storybook": "start-storybook -p 9009",
+-    "build-storybook": "build-storybook"
++    "build-storybook": "build-storybook",
++    "flow": "flow"
+```
+
+##### Initialize (add .flowconfig)
+
+```sh
+yarn flow init
+```
+
+##### Add @flow to files
+
+```js
+// @flow strict
+```
+
+> `strict` is optional
+
+##### Add jest flow types
+
+```sh
+npm install -g flow-typed
+
+# Get jest version number
+grep ^jest@ yarn.lock
+
+# Install flow types for jest
+flow-typed install jest@24.9.0
+```
+
+##### Add flow-types to .flowconfig
+
+```diff
+diff --git a/components/.flowconfig b/components/.flowconfig
+index 1fed445..0d26140 100644
+--- a/components/.flowconfig
++++ b/components/.flowconfig
+@@ -3,6 +3,7 @@
+ [include]
+
+ [libs]
++flow-typed
+```
+
+##### And add jest note to .eslintrc
+
+```diff
+diff --git a/components/.eslintrc b/components/.eslintrc
+index 530000c..6a09bdb 100644
+--- a/components/.eslintrc
++++ b/components/.eslintrc
+@@ -8,7 +8,8 @@
+     "prettier/react"
+   ],
+   "env": {
+-    "node": true
++    "node": true,
++    "jest": true
+   },
+```
 
 That's it!
+
+> _Flow-typed component library with property documentation and Storybook-integrated test UI!_
 
 > Note: with this setup, you cannot:  
 > `import AnotherComponent from 'todo-components/AnotherComponent`
