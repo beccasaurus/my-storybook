@@ -193,8 +193,7 @@ index 1704845..3787181 100644
 
 </details>
 
-### Add Jest tests for components
-
+### Add Jest
 
 <details>
   <summary></summary>
@@ -254,7 +253,7 @@ index a0f0449..9abe687 100644
 +});
 ```
 
-### Run Just tests
+### Run Jest tests
 
 ```sh
 $ yarn test
@@ -383,7 +382,6 @@ configure(require.context('../src/stories', true, /\.stories\.js$/), module);
 
 ### Add Flow
 
-
 <details>
   <summary></summary>
 
@@ -466,7 +464,7 @@ index 530000c..6a09bdb 100644
 
 </details>
 
-## Misc
+### Misc
 
 <details>
   <summary></summary>
@@ -495,7 +493,6 @@ _**Flow-typed component library with property documentation and Storybook-integr
 > Note: with this setup, you cannot:
 >
 > `import SomeComponent from 'todo-components/SomeComponent`;
->
 
 > To import additional components (besides default export):
 >
@@ -507,4 +504,160 @@ _**Flow-typed component library with property documentation and Storybook-integr
 
 ## Create React Application
 
-`TODO`
+```sh
+# Run this _outside_ of your git repository
+npx create-react-app todo-app
+
+mv todo-app my-storybook/app/ && cd my-storybook/app/
+```
+
+### Add Storybook
+
+<details>
+  <summary></summary>
+
+```sh
+npx -p @storybook/cli sb init
+
+yarn add -D @storybook/addon-docs
+```
+
+```diff
+diff --git a/.storybook/main.js b/.storybook/main.js
+index 8f79d46..68c437d 100644
+--- a/.storybook/main.js
++++ b/.storybook/main.js
+@@ -4,5 +4,6 @@ module.exports = {
+     '@storybook/preset-create-react-app',
+     '@storybook/addon-actions',
+     '@storybook/addon-links',
++    '@storybook/addon-docs',
+   ],
+ }
+```
+
+#### Add a component with a story
+
+```diff
+diff --git a/src/components/MyComponent.js b/src/components/MyComponent.js
+index e69de29..4673fc7 100644
+--- a/src/components/MyComponent.js
++++ b/src/components/MyComponent.js
+@@ -0,0 +1,19 @@
++import React from 'react';
++
++type Props = {
++  /** My text property */
++  text: string,
++};
++
++/** My amazing component */
++export function MyComponent({ text }: Props) {
++  // Random reminder, if you return a string instead of JSX
++  // then Storybook will not show your props! Weird bug.
++  return <p>Hello there! And also "{text}"</p>;
++}
++
++MyComponent.defaultProps = {
++  text: 'Defaul text',
++};
++
++export default MyComponent;
+diff --git a/src/stories/MyComponent.stories.js b/src/stories/MyComponent.stories.js
+index e69de29..a71531b 100644
+--- a/src/stories/MyComponent.stories.js
++++ b/src/stories/MyComponent.stories.js
+@@ -0,0 +1,9 @@
++import React from 'react';
++import MyComponent from '../components/MyComponent';
++
++export default {
++  title: 'My Component',
++  component: MyComponent,
++};
++
++export const Hello = () => <MyComponent text="Hello, world!" />;
+```
+
+</details>
+
+### Add Jest
+
+<details>
+  <summary></summary>
+
+#### Add enzyme test library
+
+```sh
+yarn add -D enzyme enzyme-adapter-react-16
+```
+
+#### Update src/setupTests.js
+
+```diff
+diff --git a/src/setupTests.js b/src/setupTests.js
+index 74b1a27..6c4d92b 100644
+--- a/src/setupTests.js
++++ b/src/setupTests.js
+@@ -3,3 +3,6 @@
+ // expect(element).toHaveTextContent(/react/i)
+ // learn more: https://github.com/testing-library/jest-dom
+ import '@testing-library/jest-dom/extend-expect';
++import Enzyme from 'enzyme';
++import Adapter from 'enzyme-adapter-react-16';
++Enzyme.configure({ adapter: new Adapter() });
+```
+
+#### Add a test for MyComponent
+
+```diff
+diff --git a/src/components/MyComponent.test.js b/src/components/MyComponent.test.js
+index e69de29..66fb934 100644
+--- a/src/components/MyComponent.test.js
++++ b/src/components/MyComponent.test.js
+@@ -0,0 +1,10 @@
++import React from 'react';
++import { mount } from 'enzyme';
++import MyComponent from './MyComponent';
++
++describe('MyComponent', () => {
++  it('shows correct text', () => {
++    const wrapper = mount(<MyComponent />);
++    expect(wrapper.text()).toEqual('Hello there! And also "Defaul text"');
++  });
++});
+```
+
+#### Run Jest test
+
+```sh
+$ yarn test
+
+ PASS  src/components/MyComponent.test.js
+  MyComponent
+    ✓ shows correct text (25ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.547s, estimated 2s
+Ran all test suites related to changed files.
+```
+
+#### Show Jest tests in Storybook
+
+</details>
+
+### Add Flow
+
+<details>
+  <summary></summary>
+
+</details>
+
+### Add Component from Component Library (optional)
+
+<details>
+  <summary></summary>
+
+</details>
