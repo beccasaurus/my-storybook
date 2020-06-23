@@ -757,6 +757,75 @@ index e69de29..cf480e3 100644
 <details>
   <summary></summary>
 
+```sh
+yarn add flow-bin
+```
+
+#### Add flow to package.json
+
+```diff
+diff --git a/app/package.json b/app/package.json
+index c73a164..1b5a9e1 100644
+--- a/app/package.json
++++ b/app/package.json
+@@ -6,6 +6,7 @@
+     "@testing-library/jest-dom": "^4.2.4",
+     "@testing-library/react": "^9.3.2",
+     "@testing-library/user-event": "^7.1.2",
++    "flow-bin": "^0.127.0",
+     "react": "^16.13.1",
+     "react-dom": "^16.13.1",
+     "react-scripts": "3.4.1"
+@@ -16,7 +17,8 @@
+     "test": "react-scripts test",
+     "eject": "react-scripts eject",
+     "storybook": "start-storybook -p 9009 -s public",
+-    "build-storybook": "build-storybook -s public"
++    "build-storybook": "build-storybook -s public",
++    "flow": "flow"
+   },
+```
+
+#### Initialize (add .flowconfig)
+
+```sh
+yarn flow init
+```
+
+#### Add @flow to files
+
+```js
+// @flow strict
+```
+
+> `strict` is optional
+
+#### Add jest flow types
+
+```sh
+npm install -g flow-typed
+
+# Get jest version number
+grep ^jest@ yarn.lock
+
+# Install flow types for jest
+flow-typed install jest@24.9.0
+```
+
+#### Add flow-types to .flowconfig
+
+```diff
+diff --git a/app/.flowconfig b/app/.flowconfig
+index 1fed445..0d26140 100644
+--- a/app/.flowconfig
++++ b/app/.flowconfig
+@@ -3,6 +3,7 @@
+ [include]
+
+ [libs]
++flow-typed
+```
+
 </details>
 
 ### Add Component from Component Library (optional)
