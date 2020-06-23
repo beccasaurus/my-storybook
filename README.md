@@ -483,10 +483,6 @@ index a9646d4..b657a30 100644
 
 </details>
 
-That's it!
-
-_**Flow-typed component library with property documentation and Storybook-integrated test UI!**_
-
 > Note: with this setup, you cannot:
 >
 > `import SomeComponent from 'todo-components/SomeComponent`;
