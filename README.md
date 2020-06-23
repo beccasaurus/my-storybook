@@ -13,9 +13,7 @@ Includes examples of a variety of things:
 - React Application
 - Shared Component Library
 
-One day soon, this will be completely custom.
-
-But, for now, I simply use these lovely tools:
+I use these lovely tools:
 
 - Create React Application (CRA)
 - Create React Library (CRL)
