@@ -835,4 +835,46 @@ index 1fed445..0d26140 100644
 <details>
   <summary></summary>
 
+#### Link to Component Library
+
+```diff
+diff --git a/app/package.json b/app/package.json
+index 1b5a9e1..e13c664 100644
+--- a/app/package.json
++++ b/app/package.json
+@@ -3,6 +3,7 @@
+   "version": "0.1.0",
+   "private": true,
+   "dependencies": {
++    "todo-components": "link:../components",
+```
+
+```sh
+yarn
+```
+
+#### Add Story and import and use component
+
+```diff
+diff --git a/app/src/stories/MyComponent.stories.js b/app/src/stories/MyComponent.stories.js
+index d8fb14f..15443dc 100644
+--- a/app/src/stories/MyComponent.stories.js
++++ b/app/src/stories/MyComponent.stories.js
+@@ -3,6 +3,8 @@ import MyComponent from '../components/MyComponent';
+ import { specs } from 'storybook-addon-specifications';
+ import myComponentSpecs from '../components/MyComponent.test';
+ 
++import SharedComponent from 'todo-components';
++
+ export default {
+   title: 'My Component',
+   component: MyComponent,
+@@ -12,3 +14,5 @@ export const Hello = () => {
+   specs(() => myComponentSpecs);
+   return <MyComponent text="Hello, world!" />;
+ };
++
++export const SharedComponentStory = () => <SharedComponent />;
+```
+
 </details>
