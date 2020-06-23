@@ -29,7 +29,7 @@ mkdir todo-app && cd todo-app/
 ## Create Component Libary (optional)
 
 <details>
-  <summary><h2>Create Component Library (optional)</h2></summary>
+    <summary></summary>
 
 ### Create component library
 
@@ -39,22 +39,10 @@ npx create-react-library todo-components
 mv todo-components/ components && cd components/
 ```
 
-### Update .prettierrc to use semicolons
-
-```diff
-diff --git a/.prettierrc b/.prettierrc
-index a9646d4..b657a30 100644
---- a/.prettierrc
-+++ b/.prettierrc
-@@ -1,7 +1,7 @@
- {
-   "singleQuote": true,
-   "jsxSingleQuote": true,
--  "semi": false,
-+  "semi": true,
-```
-
 ### Add Storybook
+
+<details>
+  <summary></summary>
 
 ```
 npx -p @storybook/cli sb init
@@ -205,7 +193,13 @@ index 1704845..3787181 100644
 +
 ```
 
+</details>
+
 ### Add Jest tests for components
+
+
+<details>
+  <summary></summary>
 
 #### Add enzyme test library
 
@@ -387,7 +381,13 @@ import './test';
 configure(require.context('../src/stories', true, /\.stories\.js$/), module);
 ```
 
+</details>
+
 ### Add Flow
+
+
+<details>
+  <summary></summary>
 
 ```sh
 yarn add flow-bin
@@ -465,6 +465,30 @@ index 530000c..6a09bdb 100644
 +    "jest": true
    },
 ```
+
+</details>
+
+## Misc
+
+<details>
+  <summary></summary>
+
+### Update .prettierrc to use semicolons
+
+```diff
+diff --git a/.prettierrc b/.prettierrc
+index a9646d4..b657a30 100644
+--- a/.prettierrc
++++ b/.prettierrc
+@@ -1,7 +1,7 @@
+ {
+   "singleQuote": true,
+   "jsxSingleQuote": true,
+-  "semi": false,
++  "semi": true,
+```
+
+</details>
 
 That's it!
 
