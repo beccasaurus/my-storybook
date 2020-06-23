@@ -209,6 +209,20 @@ index 1704845..3787181 100644
 +
 ```
 
+```sh
+# Add Flow
+```
+
+```sh
+TODO
+```
+
+TODO:
+
+- Add Flow
+- Add Specifications
+- Update Example App to show our component in action
+
 That's it!
 
 > Note: with this setup, you cannot:  
