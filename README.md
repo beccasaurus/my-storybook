@@ -18,7 +18,9 @@ I use these lovely tools:
 - Create React Application (CRA)
 - Create React Library (CRL)
 
-Rather than copy/pasting this code, I follow these steps:
+## Getting started
+
+Follow the steps below to create from scratch:
 
 ```sh
 mkdir todo-app && cd todo-app/
