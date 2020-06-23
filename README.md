@@ -465,7 +465,7 @@ index 530000c..6a09bdb 100644
 
 That's it!
 
-> _Flow-typed component library with property documentation and Storybook-integrated test UI!_
+_**Flow-typed component library with property documentation and Storybook-integrated test UI!**_
 
 > Note: with this setup, you cannot:  
 > `import AnotherComponent from 'todo-components/AnotherComponent`
