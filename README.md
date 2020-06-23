@@ -26,9 +26,6 @@ mkdir todo-app && cd todo-app/
 
 ## Create Component Libary (optional)
 
-<details>
-    <summary></summary>
-
 ### Create component library
 
 ```sh
@@ -497,8 +494,6 @@ _**Flow-typed component library with property documentation and Storybook-integr
 > To import additional components (besides default export):
 >
 > `import TodoComponent, { SomeComponent } from 'todo-components`;
-
-</details>
 
 ---
 
