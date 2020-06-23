@@ -204,6 +204,8 @@ index 1704845..3787181 100644
 
 #### Add Jest tests for components
 
+##### Add enzyme test library
+
 ```sh
 yarn add -D enzyme enzyme-adapter-react-16
 ```
@@ -276,7 +278,111 @@ Ran all test suites.
 
 #### Show Jest test results in Storybook
 
-- TODO
+```sh
+yarn add -D storybook-addon-specifications
+```
+
+##### Register Specifications addon
+
+> Also removes un-used addons Actions and Links (optional;)
+>
+> Removing 'Actions' ensures that the 'Specifications' tab
+> shows up by default when viewing a Story on the Canvas.
+
+```diff
+diff --git a/components/.storybook/main.js b/components/.storybook/main.js
+index 5f60ae0..8f46833 100644
+--- a/components/.storybook/main.js
++++ b/components/.storybook/main.js
+@@ -2,8 +2,7 @@ module.exports = {
+   stories: ['../src/**/*.stories.js'],
+   addons: [
+     '@storybook/preset-create-react-app',
+-    '@storybook/addon-actions',
+-    '@storybook/addon-links',
+-    '@storybook/addon-docs'
++    '@storybook/addon-docs',
++    'storybook-addon-specifications'
+   ]
+-}
++};;
+```
+
+##### Export describe() block from tests
+
+```diff
+diff --git a/components/src/index.test.js b/components/src/index.test.js
+index 9abe687..9997a70 100644
+--- a/components/src/index.test.js
++++ b/components/src/index.test.js
+@@ -2,9 +2,11 @@ import React from 'react';
+ import { mount } from 'enzyme';
+ import { ExampleComponent } from '.';
+
+-describe('ExampleComponent', () => {
++const specs = describe('ExampleComponent', () => {
+   it('shows correct text', () => {
+     const wrapper = mount(<ExampleComponent text='Hello, world!' />);
+     expect(wrapper.text()).toEqual('Example Component: Hello, world!');
+   });
+ });
++
++export default specs;
+```
+
+##### Import specs from test file and call with specs()
+
+```diff
+diff --git a/components/src/stories/1-Button.stories.js b/components/src/stories/1-Button.stories.js
+index 3787181..ed97b64 100644
+--- a/components/src/stories/1-Button.stories.js
++++ b/components/src/stories/1-Button.stories.js
+@@ -1,15 +1,20 @@
+ import React from 'react';
+ import { action } from '@storybook/addon-actions';
+ import { Button } from '@storybook/react/demo';
++import { specs } from 'storybook-addon-specifications';
+
+ import ExampleComponent, { AnotherComponent } from '../';
++import exampleComponentSpecs from '../index.test';
+
+ export default {
+   title: 'Example Component',
+   component: ExampleComponent
+ };
+
+-export const Text = () => <ExampleComponent text='Hello, world!' />;
++export const Text = () => {
++  specs(() => exampleComponentSpecs);
++  return <ExampleComponent text='Hello, world!' />;
++};
+```
+
+##### Add .storybook/test.js
+
+```js
+import { describe, it, beforeEach } from 'storybook-addon-specifications';
+import expect from 'expect';
+
+import { configure as enzymeConfigure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+enzymeConfigure({ adapter: new Adapter() });
+
+window.describe = describe;
+window.beforeEach = beforeEach;
+window.it = it;
+window.expect = expect;
+```
+
+##### Add .storybook/config.js
+
+> TODO: figure out how to not have both a main.js and a config.js
+
+```js
+import { configure } from '@storybook/react';
+import './test';
+configure(require.context('../src/stories', true, /\.stories\.js$/), module);
+```
 
 #### Add Flow
 

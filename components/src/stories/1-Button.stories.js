@@ -1,15 +1,20 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { Button } from '@storybook/react/demo';
+import { specs } from 'storybook-addon-specifications';
 
 import ExampleComponent, { AnotherComponent } from '../';
+import exampleComponentSpecs from '../index.test';
 
 export default {
   title: 'Example Component',
   component: ExampleComponent
 };
 
-export const Text = () => <ExampleComponent text='Hello, world!' />;
+export const Text = () => {
+  specs(() => exampleComponentSpecs);
+  return <ExampleComponent text='Hello, world!' />;
+};
 
 export const ShowAnother = () => <AnotherComponent />;
 
