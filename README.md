@@ -26,9 +26,9 @@ Rather than copy/pasting this code, I follow these steps:
 mkdir todo-app && cd todo-app/
 ```
 
-### Create Component Libary (optional)
+## Create Component Libary (optional)
 
-#### Create component library
+### Create component library
 
 ```sh
 npx create-react-library todo-components
@@ -36,7 +36,7 @@ npx create-react-library todo-components
 mv todo-components/ components && cd components/
 ```
 
-#### Update .prettierrc to use semicolons
+### Update .prettierrc to use semicolons
 
 ```diff
 diff --git a/.prettierrc b/.prettierrc
@@ -51,7 +51,7 @@ index a9646d4..b657a30 100644
 +  "semi": true,
 ```
 
-#### Add Storybook
+### Add Storybook
 
 ```
 npx -p @storybook/cli sb init
@@ -75,7 +75,7 @@ index 8f79d46..5f60ae0 100644
 +}
 ```
 
-#### Update Storybook to show library component
+### Update Storybook to show library component
 
 ```diff
 diff --git a/src/stories/1-Button.stories.js b/src/stories/1-Button.stories.js
@@ -99,7 +99,7 @@ index 6bcfa21..7dbfe81 100644
 +export const Text = () => <ExampleComponent text='Hello, world!' />;
 ```
 
-#### Add documentation to library component
+### Add documentation to library component
 
 ```diff
 diff --git a/src/index.js b/src/index.js
@@ -130,7 +130,7 @@ index 5d66404..461d9df 100644
 +};
 ```
 
-#### Add a default export for component library (optional)
+### Add a default export for component library (optional)
 
 ```diff
 diff --git a/src/index.js b/src/index.js
@@ -158,7 +158,7 @@ index 7dbfe81..1704845 100644
    title: 'Example Component',
 ```
 
-#### Add a second component to the library (optional)
+### Add a second component to the library (optional)
 
 ```diff
 diff --git a/src/AnotherComponent.js b/src/AnotherComponent.js
@@ -202,15 +202,15 @@ index 1704845..3787181 100644
 +
 ```
 
-#### Add Jest tests for components
+### Add Jest tests for components
 
-##### Add enzyme test library
+#### Add enzyme test library
 
 ```sh
 yarn add -D enzyme enzyme-adapter-react-16
 ```
 
-##### Add src/setupTests.js
+#### Add src/setupTests.js
 
 ```js
 import Enzyme from 'enzyme';
@@ -219,7 +219,7 @@ import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 ```
 
-##### Add src/AnotherComponent.test.js
+#### Add src/AnotherComponent.test.js
 
 ```js
 import React from 'react';
@@ -234,7 +234,7 @@ describe('AnotherComponent', () => {
 });
 ```
 
-##### Update index.test.js
+#### Update index.test.js
 
 ```diff
 diff --git a/components/src/index.test.js b/components/src/index.test.js
@@ -259,7 +259,7 @@ index a0f0449..9abe687 100644
 +});
 ```
 
-#### Run Just tests
+### Run Just tests
 
 ```sh
 $ yarn test
@@ -276,13 +276,13 @@ Time:        1.06s
 Ran all test suites.
 ```
 
-#### Show Jest test results in Storybook
+### Show Jest test results in Storybook
 
 ```sh
 yarn add -D storybook-addon-specifications
 ```
 
-##### Register Specifications addon
+#### Register Specifications addon
 
 > Also removes un-used addons Actions and Links (optional;)
 >
@@ -308,7 +308,7 @@ index 5f60ae0..8f46833 100644
 +};;
 ```
 
-##### Export describe() block from tests
+#### Export describe() block from tests
 
 ```diff
 diff --git a/components/src/index.test.js b/components/src/index.test.js
@@ -330,7 +330,7 @@ index 9abe687..9997a70 100644
 +export default specs;
 ```
 
-##### Import specs from test file and call with specs()
+#### Import specs from test file and call with specs()
 
 ```diff
 diff --git a/components/src/stories/1-Button.stories.js b/components/src/stories/1-Button.stories.js
@@ -358,7 +358,7 @@ index 3787181..ed97b64 100644
 +};
 ```
 
-##### Add .storybook/test.js
+#### Add .storybook/test.js
 
 ```js
 import { describe, it, beforeEach } from 'storybook-addon-specifications';
@@ -374,7 +374,7 @@ window.it = it;
 window.expect = expect;
 ```
 
-##### Add .storybook/config.js
+#### Add .storybook/config.js
 
 > TODO: figure out how to not have both a main.js and a config.js
 
@@ -384,13 +384,13 @@ import './test';
 configure(require.context('../src/stories', true, /\.stories\.js$/), module);
 ```
 
-#### Add Flow
+### Add Flow
 
 ```sh
 yarn add flow-bin
 ```
 
-##### Add flow to package.json
+#### Add flow to package.json
 
 ```diff
 diff --git a/components/package.json b/components/package.json
@@ -406,13 +406,13 @@ index 5bd8527..3dc3e97 100644
 +    "flow": "flow"
 ```
 
-##### Initialize (add .flowconfig)
+#### Initialize (add .flowconfig)
 
 ```sh
 yarn flow init
 ```
 
-##### Add @flow to files
+#### Add @flow to files
 
 ```js
 // @flow strict
@@ -420,7 +420,7 @@ yarn flow init
 
 > `strict` is optional
 
-##### Add jest flow types
+#### Add jest flow types
 
 ```sh
 npm install -g flow-typed
@@ -432,7 +432,7 @@ grep ^jest@ yarn.lock
 flow-typed install jest@24.9.0
 ```
 
-##### Add flow-types to .flowconfig
+#### Add flow-types to .flowconfig
 
 ```diff
 diff --git a/components/.flowconfig b/components/.flowconfig
@@ -446,7 +446,7 @@ index 1fed445..0d26140 100644
 +flow-typed
 ```
 
-##### And add jest note to .eslintrc
+#### And add jest note to .eslintrc
 
 ```diff
 diff --git a/components/.eslintrc b/components/.eslintrc
@@ -470,6 +470,8 @@ _**Flow-typed component library with property documentation and Storybook-integr
 > Note: with this setup, you cannot:  
 > `import AnotherComponent from 'todo-components/AnotherComponent`
 
-### Create React Application
+---
+
+## Create React Application
 
 `TODO`
