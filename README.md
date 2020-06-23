@@ -28,14 +28,15 @@ mkdir todo-app && cd todo-app/
 
 ### Create Component Libary (optional)
 
+#### Create component library
+
 ```sh
-# Create component library
 npx create-react-library todo-components
 
 mv todo-components/ components && cd components/
-
-# Update .prettierrc to use semicolons
 ```
+
+#### Update .prettierrc to use semicolons
 
 ```diff
 diff --git a/.prettierrc b/.prettierrc
@@ -50,11 +51,11 @@ index a9646d4..b657a30 100644
 +  "semi": true,
 ```
 
+#### Add Storybook
+
 ```
-# Add Storybook
 npx -p @storybook/cli sb init
 
-# Add Docs Storybook addon
 yarn add -D @storybook/addon-docs
 ```
 
@@ -74,9 +75,7 @@ index 8f79d46..5f60ae0 100644
 +}
 ```
 
-```sh
-# Update Storybook story to show ExampleComponent
-```
+#### Update Storybook to show library component
 
 ```diff
 diff --git a/src/stories/1-Button.stories.js b/src/stories/1-Button.stories.js
@@ -100,9 +99,7 @@ index 6bcfa21..7dbfe81 100644
 +export const Text = () => <ExampleComponent text='Hello, world!' />;
 ```
 
-```sh
-# Document component (will show up in Storybook)
-```
+#### Add documentation to library component
 
 ```diff
 diff --git a/src/index.js b/src/index.js
@@ -133,9 +130,7 @@ index 5d66404..461d9df 100644
 +};
 ```
 
-```sh
-# Add a default export to the library (optional)
-```
+#### Add a default export for component library (optional)
 
 ```diff
 diff --git a/src/index.js b/src/index.js
@@ -163,9 +158,7 @@ index 7dbfe81..1704845 100644
    title: 'Example Component',
 ```
 
-```sh
-# Add a second component to the library (optional)
-```
+#### Add a second component to the library (optional)
 
 ```diff
 diff --git a/src/AnotherComponent.js b/src/AnotherComponent.js
@@ -209,19 +202,17 @@ index 1704845..3787181 100644
 +
 ```
 
-```sh
-# Add Flow
-```
+#### Add Jest tests for components
 
-```sh
-TODO
-```
+- TODO
 
-TODO:
+#### Show Jest test results in Storybook
 
-- Add Flow
-- Add Specifications
-- Update Example App to show our component in action
+- TODO
+
+#### Add Flow
+
+- TODO
 
 That's it!
 
