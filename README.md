@@ -492,8 +492,14 @@ That's it!
 
 _**Flow-typed component library with property documentation and Storybook-integrated test UI!**_
 
-> Note: with this setup, you cannot:  
-> `import AnotherComponent from 'todo-components/AnotherComponent`
+> Note: with this setup, you cannot:
+>
+> `import SomeComponent from 'todo-components/SomeComponent`;
+>
+
+> To import additional components (besides default export):
+>
+> `import TodoComponent, { SomeComponent } from 'todo-components`;
 
 </details>
 
