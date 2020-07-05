@@ -4,10 +4,14 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "scripts": {
-    "storybook": "start-storybook"
+    "storybook": "start-storybook -s public -p 3001",
+    "build-workers": "tsc workers/*.ts --outDir public/"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@storybook/addon-docs": "^5.3.19",
     "@storybook/addon-info": "^5.3.19",
     "@storybook/react": "^5.3.19",

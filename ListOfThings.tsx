@@ -11,18 +11,20 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => ({
   addThing: (thing: things.Thing) => dispatch(things.actions.addThing(thing)),
+  removeThing: (id: string) => dispatch(things.actions.removeThing(id)),
 });
 
 export type Props = {
   /** These are the things! */
   things: Array<things.Thing>;
   addThing: (thing: things.Thing) => void;
+  removeThing: (id: string) => void;
 };
 
 /**
  * This is the component!
  */
-export function DisconnectedListOfThings({ things, addThing }: Props) {
+export function DisconnectedListOfThings({ things, addThing, removeThing }: Props) {
   const [newThingName, setNewThingName] = React.useState('New thing name here');
   const addNewThing = () => {
     const thing = { id: shortid.generate(), name: newThingName };
@@ -33,7 +35,10 @@ export function DisconnectedListOfThings({ things, addThing }: Props) {
       <h1>Things</h1>
       <ul>
         {things.map((thing) => (
-          <li key={thing.id}>{thing.name}</li>
+          <li key={thing.id}>
+            <span>{thing.name}</span>
+            <span onClick={() => removeThing(thing.id)}>✖</span>
+          </li>
         ))}
       </ul>
       <input value={newThingName} onChange={(e) => setNewThingName(e.currentTarget.value)} />

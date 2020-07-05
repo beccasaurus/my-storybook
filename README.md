@@ -8,6 +8,7 @@ Includes examples of a variety of things:
 
 - React
 - Redux
+- Workers
 - Storybook
 - TypeScript
 

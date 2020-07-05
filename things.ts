@@ -20,6 +20,7 @@ const thingSlice = createSlice({
   reducers: {
     addThing: thingAdapter.addOne,
     addThings: thingAdapter.addMany,
+    removeThing: thingAdapter.removeOne,
   },
 });
 
