@@ -8,4 +8,8 @@ export const myComponentTests = describe('My Component', () => {
     expect(wrapper.text()).toContain('This is wonderful');
     expect(wrapper.text()).not.toContain('Something completely different');
   });
+  it('this one should fail', () => {
+    const wrapper = mount(<MyComponent hello="This is wonderful" />);
+    expect(wrapper.text()).toContain('This is not what we are expecting');
+  });
 });
