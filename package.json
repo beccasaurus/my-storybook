@@ -1,0 +1,24 @@
+{
+  "name": "my-storybook",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "scripts": {
+    "storybook": "start-storybook"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@storybook/addon-docs": "^5.3.19",
+    "@storybook/addon-info": "^5.3.19",
+    "@storybook/react": "^5.3.19",
+    "@types/jest": "^26.0.3",
+    "babel-loader": "^8.1.0",
+    "jest": "^26.1.0",
+    "react": "^16.13.1",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "react-dom": "^16.13.1",
+    "ts-jest": "^26.1.1",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.6"
+  }
+}
