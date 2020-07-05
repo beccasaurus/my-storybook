@@ -2,8 +2,6 @@
 
 > _Simple folder setup for React/Redux development_
 
-My currently preferred template for creating React apps.
-
 Includes examples of a variety of things:
  
 - Tests
